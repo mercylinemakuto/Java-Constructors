@@ -20,7 +20,7 @@ console.log(feature.canAccess("testers"));
 
 
 
-// 2.In a freelancer time-tracking platform, create a TimeLog constructor function with properties: freelancerName (string), projectDetails (object with name and hourlyRate), and logs (array of objects with date, hoursWorked), then add prototype methods to calculate total earnings, filter logs by date range, and determine if weekly hours exceed 40 using if-else logic.
+// // 2.In a freelancer time-tracking platform, create a TimeLog constructor function with properties: freelancerName (string), projectDetails (object with name and hourlyRate), and logs (array of objects with date, hoursWorked), then add prototype methods to calculate total earnings, filter logs by date range, and determine if weekly hours exceed 40 using if-else logic.
 
 function TimeLog(freelancerName, projectDetails, logs){
     this.freelancerName = freelancerName,
@@ -31,9 +31,12 @@ TimeLog.prototype.calculateEarnings = function(){
     let earnings = this.projectDetails.hourlyRate * this.logs.hoursWorked
     return earnings
 }
-TimeLog.prototype.filterLogs = function(){
-
-}
+// TimeLog.prototype.filterLogs = function(start, end){
+//     date = this.logs.filter(log =>{
+//         let date = new Date(log.date);
+//         return date >= new Date(start) && date <= new Date(end)
+//     });
+// };
 TimeLog.prototype.workHours = function(){
     if(this.hoursWorked > 40){
         console.log("Exceeded")
@@ -42,9 +45,11 @@ TimeLog.prototype.workHours = function(){
     }
 }
 
-// const log = new Log("Mike", {name:"Judy", hourlyRate:50}, {date:})
+const log = new TimeLog("Mike", {name:"Judy", hourlyRate:50}, [{date:'2025-5-2',hoursWorked:5}, {date:'2024-5-10', hoursWorked:3}])
+console.log(log.calculateEarnings());
+// console.log(log.filterLogs('2024-3-2','2024-4-1'));
 
-// 3. You are developing a startup’s order management system where an Order constructor function should contain customer (object with name and email), items (array of objects with productName, quantity, and unitPrice), and status (string), then implement prototype methods to compute total cost, update order status based on payment, and categorize order urgency using switch and conditional statements.
+// // 3. You are developing a startup’s order management system where an Order constructor function should contain customer (object with name and email), items (array of objects with productName, quantity, and unitPrice), and status (string), then implement prototype methods to compute total cost, update order status based on payment, and categorize order urgency using switch and conditional statements.
 function Order(customer, items, status){
     this.customer = customer,
     this.items = items,
@@ -62,16 +67,21 @@ Order.prototype.updateStatus = function(paymentStatus){
     }
 }
 Order.prototype.OrderUrgency = function(){
-
+    if(this.totalCost == this.payment){
+        return 'Very urgent'
+    }else{
+        return 'Least urgent'
+    }
 };
 
 const order = new Order({name: "Cyndy", email:"cyndy@gmail.com"}, {productName: "Cakes", quantity: "50", unitPrice:"500"}, "Not paid")
 console.log(order.updateStatus())
 console.log(order.totalCost())
 console.log(order)
+console.log(order.OrderUrgency())
 
 
-// 4.In a startup’s employee review tool, design an Employee class with properties: id (number), name (string), performanceMetrics (object with keys like communication, efficiency, and reliability), and feedback (array of strings), then use prototypes to calculate an average score, classify performance level using control flow, and add new feedback based on conditions.
+// // 4.In a startup’s employee review tool, design an Employee class with properties: id (number), name (string), performanceMetrics (object with keys like communication, efficiency, and reliability), and feedback (array of strings), then use prototypes to calculate an average score, classify performance level using control flow, and add new feedback based on conditions.
 class Employee{
     constructor (id, name, performanceMetrics, feedback){
         this.id = id,
@@ -80,17 +90,39 @@ class Employee{
         this.feedback = feedback;
     }
 }
-    averageScore = function(){
-
+Employee.prototype.averageScore = function(){
+    let average = Object.values(this.performanceMetrics)
+    sum = average.reduce((prev,curr) => prev_+ curr, 0)
+    return sum/ average.length
     }
-    performanceLevel = function(){
-
+Employee.prototype.performanceLevel = function(){
+    if(this.averageScore()== 80){
+        return 'Meets expectation'
     }
-    newFeedback = function(){
-
+    else if(this.averageScore >= 50 && this.averageScore < 80){
+        return "average score"
     }
+    else{
+        return "below average"
+    }
+}
+Employee.prototype. addFeature = function(){
+    if(this.performanceLevel() == "Exceeds expectation"){
+        return "You've succeeded"
+    }
+    else if(this.performanceLevel() == "Average"){
+        return "You can do better"
+    }
+    else{
+        return "Pull up"
+    }
+    }
+    const employee = new Employee(2590568, "Angie",{communication: 80, efficiency:60, reliability:40},["Improve","Good job","Excellent"])
+    console.log(employee.averageScore());
+    console.log(employee.performanceLevel());
+    console.log(employee.addFeature());
 
-// 5.Build a simple e-learning system where a Course class has properties: title (string), instructor (object with name and expertise), and students (array of objects with name and completionStatus), then add prototype methods to return names of students who completed the course, count enrolled students by expertise area, and use control flow to output different messages for instructors with more or less than 5 students.
+// // 5.Build a simple e-learning system where a Course class has properties: title (string), instructor (object with name and expertise), and students (array of objects with name and completionStatus), then add prototype methods to return names of students who completed the course, count enrolled students by expertise area, and use control flow to output different messages for instructors with more or less than 5 students.
 class Course{
     constructor(title, instructor, students){
         this.title = title;
